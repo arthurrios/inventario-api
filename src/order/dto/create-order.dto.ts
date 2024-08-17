@@ -1,7 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-
-
 export class CreateOrderDto {
 	@ApiProperty()
 	date: Date;
@@ -9,8 +7,8 @@ export class CreateOrderDto {
 	@ApiProperty()
 	supplierId: string;
 
-	@ApiProperty()
-	items: OrderItemDto[];
+	//@ApiProperty()
+	//items: OrderItemDto[];
 	
 	
 }

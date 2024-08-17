@@ -18,15 +18,15 @@ async function main() {
 	});		
 
 	// create ten dummy products
-	for (let i = 0; i < 10; i++) {
-		await prisma.product.create({
-			data: {
-				name: `Product ${i + 1}`,
-				price: 100 * (i + 1),
-				categoryId: String(i % 2 === 0 ? category1.id : category2.id),
-			},
-		});
-	}
+	// for (let i = 0; i < 10; i++) {
+	// 	await prisma.product.create({
+	// 		data: {
+	// 			name: `Product ${i + 1}`,
+	// 			price: 100 * (i + 1),
+	// 			categoryId: String(i % 2 === 0 ? category1.id : category2.id),
+	// 		},
+	// 	});
+	// }
 
 	//crete 5 dummy suppliers
 	
