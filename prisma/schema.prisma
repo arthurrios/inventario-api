@@ -52,9 +52,9 @@ model Product {
 }
 
 model User {
-  id    String @id @default(uuid())
-  name  String
-  email String @unique
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
   password String
-  type  String
+  type     String
 }
