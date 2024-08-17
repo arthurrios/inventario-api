@@ -20,14 +20,9 @@ async function main() {
 
 	await Promise.all(Products.map(async (product) => {
 
-		console.log(product);
-		
 		const category = await prisma.category.findUnique({
 			where: { id: product.categoryId },
 		});
-
-		console.log(category);
-		
 
 		await prisma.product.upsert({
 			where: { id: product.id },

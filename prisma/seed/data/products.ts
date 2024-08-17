@@ -1,4 +1,5 @@
 
+
 module.exports = [
 	{
 		id: 'ad5394d6-da1a-4827-b840-6e04aa419538',
@@ -57,7 +58,7 @@ module.exports = [
 		categoryId: '33690087-5253-4336-8a55-2ac698b21a9a'
 	},
 	{
-		id: '3fa7d7c4-6d59-4c4e-bd85-1f96fae13185',
+		id: 'db200eae-019f-4d4f-9026-104f8ec31a30',
 		name: 'Jogo de tabuleiro',
 		description: 'Um jogo bem divertido',
 		price: Math.random() * 100,
