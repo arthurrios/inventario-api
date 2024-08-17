@@ -12,4 +12,8 @@ export class UserEntity implements User {
 	password: string;
 	@ApiProperty()
 	type: string;
+	@ApiProperty()
+	googleId: string;
+	@ApiProperty()
+	profilePicture: string;
 }

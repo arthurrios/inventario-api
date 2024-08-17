@@ -8,6 +8,7 @@ import { CategoryModule } from './category/category.module';
 import { SupplierModule } from './supplier/supplier.module';
 import { OrderItemModule } from './order-item/order-item.module';
 import { ProductModule } from './product/product.module';
+import { UserService } from './user/user.service';
 
 @Module({
   imports: [PrismaModule, ProductModule, UserModule, OrderModule, CategoryModule, SupplierModule, OrderItemModule],

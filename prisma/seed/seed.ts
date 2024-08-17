@@ -3,37 +3,32 @@ import { PrismaClient } from '@prisma/client';
 // initialize Prisma Client
 const prisma = new PrismaClient();
 
+const Categories = require('./data/categories');
+const Products = require('./data/products');
+
 async function main() {
-	// create two dummy categories
-	const category1 = await prisma.category.create({
-		data: {
-			name: 'Produtos esportivos',
-		},
-	});
 
-	const category2 = await prisma.category.create({
-		data: {
-			name: 'Produtos de limpeza',
-		},
-	});		
-
-	//create ten dummy products
-	for (let i = 0; i < 10; i++) {
-		await prisma.product.create(
+	await Promise.all(Categories.map(async (category) => {
+		await prisma.category.upsert(
 			{
-				data: {
-					name: `Produto ${i}`,
-					price: i * 10,
-					categoryId: category1.id,
-				},
+				where: { id: category.id },
+				update: {},
+				create: category
 			}
 		);
-	}
+	}));
 
-	//crete 5 dummy suppliers
+	await Promise.all(Products.map(async (product) => {
+		await prisma.product.upsert(
+			{
+				where: { id: product.id },
+				update: {},
+				create: product
+			}
+		);
+	}));
+
 	
-
-
 
 }
 

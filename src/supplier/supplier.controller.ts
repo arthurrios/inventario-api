@@ -11,7 +11,6 @@ import {
 import { SupplierService } from './supplier.service';
 import { CreateSupplierDto } from './dto/create-supplier.dto';
 import { UpdateSupplierDto } from './dto/update-supplier.dto';
-import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { SupplierEntity } from './entities/supplier.entity';
@@ -44,10 +43,6 @@ export class SupplierController {
 
   @Patch(':id')
   @UseGuards(JwtAuthGuard)
-  update(
-    @Param('id') id: string,
-    @Body() updateSupplierDto: UpdateSupplierDto,
-  ) {
   @ApiOkResponse({ type: SupplierEntity })
   update(@Param('id') id: string, @Body() updateSupplierDto: UpdateSupplierDto) {
     return this.supplierService.update(+id, updateSupplierDto);
