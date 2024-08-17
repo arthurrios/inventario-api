@@ -12,6 +12,6 @@ import { ProductModule } from './product/product.module';
 @Module({
   imports: [PrismaModule, ProductModule, UserModule, OrderModule, CategoryModule, SupplierModule, OrderItemModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, UserService],
 })
 export class AppModule {}
