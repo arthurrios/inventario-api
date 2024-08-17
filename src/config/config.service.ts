@@ -12,4 +12,10 @@ export class ConfigService {
       callbackURL: this.configService.get<string>('GOOGLE_CALLBACK_URL'),
     };
   }
+
+  get jwt() {
+    return {
+      jwtSecret: this.configService.get<string>('JWT_SECRET'),
+    };
+  }
 }
