@@ -11,17 +11,17 @@ import {
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard'
+import { GoogleOAuthGuard } from 'src/auth/guards/google-oauth.guard';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { CategoryEntity } from './entities/category.entity';
 
 @Controller('category')
 @ApiTags('category')
 export class CategoryController {
-  constructor(private readonly categoryService: CategoryService) {}
+  constructor(private readonly categoryService: CategoryService) { }
 
   @Post()
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(GoogleOAuthGuard)
   @ApiCreatedResponse({ type: CategoryEntity })
   create(@Body() createCategoryDto: CreateCategoryDto) {
     console.log('createCategoryDto', createCategoryDto);
@@ -30,28 +30,28 @@ export class CategoryController {
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(GoogleOAuthGuard)
   @ApiOkResponse({ type: CategoryEntity, isArray: true })
   findAll() {
     return this.categoryService.findAll();
   }
 
   @Get(':id')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(GoogleOAuthGuard)
   @ApiOkResponse({ type: CategoryEntity, isArray: true })
   findOne(@Param('id') id: string) {
     return this.categoryService.findOne(id);
   }
 
   @Patch(':id')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(GoogleOAuthGuard)
   @ApiOkResponse({ type: CategoryEntity })
   update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
     return this.categoryService.update(id, updateCategoryDto);
   }
 
   @Delete(':id')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(GoogleOAuthGuard)
   @ApiOkResponse({ type: CategoryEntity })
   remove(@Param('id') id: string) {
     return this.categoryService.remove(id);

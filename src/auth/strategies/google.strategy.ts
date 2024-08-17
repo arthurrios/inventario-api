@@ -1,19 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, VerifyCallback } from 'passport-google-oauth20';
-import { ConfigService } from 'src/config/config.service';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
-  constructor(
-    private configService: ConfigService,
-    private prismaService: PrismaService,
-  ) {
+  constructor(private configService: ConfigService) {
     super({
-      clientID: configService.google.clientID,
-      clientSecret: configService.google.clientSecret,
-      callbackURL: configService.google.callbackURL,
+      clientID: configService.get<string>('GOOGLE_CLIENT_ID'),
+      clientSecret: configService.get<string>('GOOGLE_CLIENT_SECRET'),
+      callbackURL: configService.get<string>('GOOGLE_CALLBACK_URL'),
       scope: ['email', 'profile'],
     });
   }
@@ -24,12 +20,17 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     profile: any,
     done: VerifyCallback,
   ) {
-    const { name, emails } = profile;
+    const { name, emails, photos } = profile;
+
     const user = {
       email: emails[0].value,
-      name: name.givenName,
+      firstName: name.givenName,
+      lastName: name.familyName,
+      picture: photos[0].value,
       accessToken,
+      refreshToken,
     };
+
     done(null, user);
   }
 }

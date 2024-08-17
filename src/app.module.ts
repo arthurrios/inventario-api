@@ -6,13 +6,22 @@ import { UserModule } from './user/user.module';
 import { OrderModule } from './order/order.module';
 import { CategoryModule } from './category/category.module';
 import { SupplierModule } from './supplier/supplier.module';
-import { OrderItemModule } from './order-item/order-item.module';
 import { ProductModule } from './product/product.module';
-import { UserService } from './user/user.service';
+import { GoogleStrategy } from './auth/strategies/google.strategy';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
-  imports: [PrismaModule, ProductModule, UserModule, OrderModule, CategoryModule, SupplierModule, OrderItemModule],
+  imports: [
+    ConfigModule.forRoot(),
+    PrismaModule,
+    ProductModule,
+    UserModule,
+    OrderModule,
+    CategoryModule,
+    SupplierModule
+  ],
   controllers: [AppController],
-  providers: [AppService, UserService],
+  providers: [GoogleStrategy, AppService, ConfigService],
 })
-export class AppModule {}
+export class AppModule { }
+  
