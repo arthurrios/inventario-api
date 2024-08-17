@@ -50,5 +50,5 @@ module.exports = [
 		id: 'fc328390-5924-4c00-a14f-fc31d403535e',
 		name: 'Alimentos e Bebidas',
 		description: 'Alimentos e Bebidas é onde está o coração',
-	},
+	}
 ];
