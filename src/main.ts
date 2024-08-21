@@ -7,7 +7,9 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Inventory API')
-    .setDescription('An API to manage inventory,, created by Arthur Rios and Eduardo Santana')
+    .setDescription(
+      'An API to manage inventory created by Arthur Rios and Eduardo Santana',
+    )
     .setVersion('1.0')
     .addTag('inventory')
     .build();

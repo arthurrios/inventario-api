@@ -7,8 +7,8 @@ import { OrderModule } from './order/order.module';
 import { CategoryModule } from './category/category.module';
 import { SupplierModule } from './supplier/supplier.module';
 import { ProductModule } from './product/product.module';
-import { GoogleStrategy } from './auth/strategies/google.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -18,10 +18,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     UserModule,
     OrderModule,
     CategoryModule,
-    SupplierModule
+    SupplierModule,
+    AuthModule,
   ],
   controllers: [AppController],
-  providers: [GoogleStrategy, AppService, ConfigService],
+  providers: [AppService, ConfigService],
 })
-export class AppModule { }
-  
+export class AppModule {}

@@ -11,16 +11,17 @@ import {
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { GoogleOAuthGuard } from 'src/auth/guards/google-oauth.guard';;
+import { GoogleOAuthGuard } from 'src/auth/guards/google-oauth.guard';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { ProductEntity } from './entities/product.entity';
 
 @Controller('product')
 @ApiTags('product')
 export class ProductController {
-  constructor(private readonly productService: ProductService) { }
+  constructor(private readonly productService: ProductService) {}
 
   @Post()
+  // @UseGuards(GoogleOAuthGuard)
   //@UseGuards(GoogleOAuthGuard)
   @ApiCreatedResponse({ type: ProductEntity })
   create(@Body() createProductDto: CreateProductDto) {
@@ -28,6 +29,7 @@ export class ProductController {
   }
 
   @Get()
+  // @UseGuards(GoogleOAuthGuard)
   //@UseGuards(GoogleOAuthGuard)
   @ApiOkResponse({ type: ProductEntity, isArray: true })
   findAll() {
@@ -35,6 +37,7 @@ export class ProductController {
   }
 
   @Get(':id')
+  // @UseGuards(GoogleOAuthGuard)
   //@UseGuards(GoogleOAuthGuard)
   @ApiOkResponse({ type: ProductEntity, isArray: true })
   findOne(@Param('id') id: string) {
@@ -42,6 +45,7 @@ export class ProductController {
   }
 
   @Patch(':id')
+  // @UseGuards(GoogleOAuthGuard)
   //@UseGuards(GoogleOAuthGuard)
   @ApiOkResponse({ type: ProductEntity })
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
@@ -49,6 +53,7 @@ export class ProductController {
   }
 
   @Delete(':id')
+  // @UseGuards(GoogleOAuthGuard)
   //@UseGuards(GoogleOAuthGuard)
   @ApiOkResponse({ type: ProductEntity })
   remove(@Param('id') id: string) {
