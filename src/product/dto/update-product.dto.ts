@@ -14,5 +14,5 @@ export class UpdateProductDto extends PartialType(CreateProductDto) {
 	price: number;
 
 	@ApiProperty({ required: false })
-	categoryId: number;
+	categoryId: string;
 }

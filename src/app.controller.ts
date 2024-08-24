@@ -7,11 +7,11 @@ export class AppController {
   constructor(private readonly appService: AppService) { }
 
   @Get()
-  @UseGuards(GoogleOAuthGuard)
+  //@UseGuards(GoogleOAuthGuard)
   async googleAuth(@Request() req) { }
 
   @Get('google-redirect')
-  @UseGuards(GoogleOAuthGuard)
+  //@UseGuards(GoogleOAuthGuard)
   googleAuthRedirect(@Request() req) {
     return this.appService.googleLogin(req);
   }

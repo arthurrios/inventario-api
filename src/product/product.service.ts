@@ -7,22 +7,41 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class ProductService {
   constructor(private prisma: PrismaService) {}
   create(createProductDto: CreateProductDto) {
-    return 'This action adds a new product';
+    const product = this.prisma.product.create({
+      data: createProductDto,
+    });
+
+    return product
   }
 
   findAll() {
     return this.prisma.product.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  findOne(id: string) {
+    return this.prisma.product.findUnique({
+      where: {
+        id: id,
+      },
+    });
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+  update(id: string, updateProductDto: UpdateProductDto) {
+    const updatedProduct = this.prisma.product.update({
+      where: {
+        id: id,
+      },
+      data: updateProductDto,
+    });
+
+    return updatedProduct;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  remove(id: string) {
+    return this.prisma.product.delete({
+      where: {
+        id: id,
+      },
+    });
   }
 }

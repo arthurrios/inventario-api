@@ -5,6 +5,8 @@ export class ProductEntity implements Product  {
 	@ApiProperty()
 	id: string;
 	@ApiProperty()
+	code: number;
+	@ApiProperty()
 	name: string;
 	@ApiProperty()
 	description: string;

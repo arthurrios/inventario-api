@@ -1,0 +1,7 @@
+version: '3.8'
+
+networks:
+  postgres-db-network:
+    driver: bridge
+  minionetwork:
+    driver: bridge

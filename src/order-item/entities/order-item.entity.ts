@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { OrderItem } from "@prisma/client";
+import { OrderItem, OrderItemStatus } from "@prisma/client";
+import { Decimal } from "@prisma/client/runtime/library";
 
 export class OrderItemEntity implements OrderItem {
 	
@@ -11,5 +12,14 @@ export class OrderItemEntity implements OrderItem {
 	productId: string;
 	@ApiProperty()
 	quantity: number;
+	@ApiProperty()
+	unit_price: Decimal;
+	@ApiProperty()
+	status: OrderItemStatus;
+	@ApiProperty()
+	createdAt: Date;
+	@ApiProperty()
+	updatedAt: Date;
+
 	
 }

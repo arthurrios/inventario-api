@@ -5,16 +5,16 @@ import { GoogleOAuthGuard } from './guards/google-oauth.guard';
 
 @Controller('api/auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) { }
 
   @Get('google')
-  @UseGuards(GoogleOAuthGuard)
+  //@UseGuards(GoogleOAuthGuard)
   async googleAuth() {
     // This route initiates the Google OAuth flow
   }
 
   @Get('callback/google')
-  @UseGuards(GoogleOAuthGuard)
+  //@UseGuards(GoogleOAuthGuard)
   async googleAuthRedirect(@Req() req: Request, @Res() res: Response) {
     // Extract the user from the request
     const user = req.user as any;

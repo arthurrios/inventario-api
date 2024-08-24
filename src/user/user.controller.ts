@@ -21,31 +21,31 @@ export class UserController {
   constructor(private readonly userService: UserService) { }
 
   @Post()
-  @UseGuards(GoogleOAuthGuard)
+  //@UseGuards(GoogleOAuthGuard)
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
   @Get()
-  @UseGuards(GoogleOAuthGuard)
+  //@UseGuards(GoogleOAuthGuard)
   findAll() {
     return this.userService.findAll();
   }
 
   @Get(':id')
-  @UseGuards(GoogleOAuthGuard)
+  //@UseGuards(GoogleOAuthGuard)
   findOne(@Param('id') id: string) {
     return this.userService.findOne(id);
   }
 
   @Patch(':id')
-  @UseGuards(GoogleOAuthGuard)
+  //@UseGuards(GoogleOAuthGuard)
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')
-  @UseGuards(GoogleOAuthGuard)
+  //@UseGuards(GoogleOAuthGuard)
   remove(@Param('id') id: string) {
     return this.userService.remove(id);
   }

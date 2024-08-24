@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
 import { UserEntity } from '../user/entities/user.entity';
 import { CreateUserDto } from '../user/dto/create-user.dto';
+import { UserType } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -28,7 +29,7 @@ export class AuthService {
         email: emails[0].value,
         name: displayName,
         profilePicture: photos[0].value,
-        type: 'user', // Default type for new users
+        type: UserType.CLIENTE, // Default type for new users
       };
 
       user = await this.prisma.user.create({

@@ -21,7 +21,7 @@ export class CategoryController {
   constructor(private readonly categoryService: CategoryService) { }
 
   @Post()
-  @UseGuards(GoogleOAuthGuard)
+  ////@UseGuards(GoogleOAuthGuard)
   @ApiCreatedResponse({ type: CategoryEntity })
   create(@Body() createCategoryDto: CreateCategoryDto) {
     console.log('createCategoryDto', createCategoryDto);
@@ -30,28 +30,28 @@ export class CategoryController {
   }
 
   @Get()
-  @UseGuards(GoogleOAuthGuard)
+  //@UseGuards(GoogleOAuthGuard)
   @ApiOkResponse({ type: CategoryEntity, isArray: true })
   findAll() {
     return this.categoryService.findAll();
   }
 
   @Get(':id')
-  @UseGuards(GoogleOAuthGuard)
+  //@UseGuards(GoogleOAuthGuard)
   @ApiOkResponse({ type: CategoryEntity, isArray: true })
   findOne(@Param('id') id: string) {
     return this.categoryService.findOne(id);
   }
 
   @Patch(':id')
-  @UseGuards(GoogleOAuthGuard)
+  //@UseGuards(GoogleOAuthGuard)
   @ApiOkResponse({ type: CategoryEntity })
   update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
     return this.categoryService.update(id, updateCategoryDto);
   }
 
   @Delete(':id')
-  @UseGuards(GoogleOAuthGuard)
+  //@UseGuards(GoogleOAuthGuard)
   @ApiOkResponse({ type: CategoryEntity })
   remove(@Param('id') id: string) {
     return this.categoryService.remove(id);

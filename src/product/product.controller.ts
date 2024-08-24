@@ -18,45 +18,45 @@ import { ProductEntity } from './entities/product.entity';
 @Controller('product')
 @ApiTags('product')
 export class ProductController {
-  constructor(private readonly productService: ProductService) {}
+  constructor(private readonly productService: ProductService) { }
 
   @Post()
-  // @UseGuards(GoogleOAuthGuard)
-  //@UseGuards(GoogleOAuthGuard)
+  // //@UseGuards(GoogleOAuthGuard)
+  ////@UseGuards(GoogleOAuthGuard)
   @ApiCreatedResponse({ type: ProductEntity })
   create(@Body() createProductDto: CreateProductDto) {
     return this.productService.create(createProductDto);
   }
 
   @Get()
-  // @UseGuards(GoogleOAuthGuard)
-  //@UseGuards(GoogleOAuthGuard)
+  // //@UseGuards(GoogleOAuthGuard)
+  ////@UseGuards(GoogleOAuthGuard)
   @ApiOkResponse({ type: ProductEntity, isArray: true })
   findAll() {
     return this.productService.findAll();
   }
 
   @Get(':id')
-  // @UseGuards(GoogleOAuthGuard)
-  //@UseGuards(GoogleOAuthGuard)
+  // //@UseGuards(GoogleOAuthGuard)
+  ////@UseGuards(GoogleOAuthGuard)
   @ApiOkResponse({ type: ProductEntity, isArray: true })
   findOne(@Param('id') id: string) {
-    return this.productService.findOne(+id);
+    return this.productService.findOne(id);
   }
 
   @Patch(':id')
-  // @UseGuards(GoogleOAuthGuard)
-  //@UseGuards(GoogleOAuthGuard)
+  // //@UseGuards(GoogleOAuthGuard)
+  ////@UseGuards(GoogleOAuthGuard)
   @ApiOkResponse({ type: ProductEntity })
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-    return this.productService.update(+id, updateProductDto);
+    return this.productService.update(id, updateProductDto);
   }
 
   @Delete(':id')
-  // @UseGuards(GoogleOAuthGuard)
-  //@UseGuards(GoogleOAuthGuard)
+  // //@UseGuards(GoogleOAuthGuard)
+  ////@UseGuards(GoogleOAuthGuard)
   @ApiOkResponse({ type: ProductEntity })
   remove(@Param('id') id: string) {
-    return this.productService.remove(+id);
+    return this.productService.remove(id);
   }
 }

@@ -21,37 +21,37 @@ export class SupplierController {
   constructor(private readonly supplierService: SupplierService) { }
 
   @Post()
-  @UseGuards(GoogleOAuthGuard)
+  //@UseGuards(GoogleOAuthGuard)
   @ApiCreatedResponse({ type: SupplierEntity })
   create(@Body() createSupplierDto: CreateSupplierDto) {
     return this.supplierService.create(createSupplierDto);
   }
 
   @Get()
-  @UseGuards(GoogleOAuthGuard)
+  //@UseGuards(GoogleOAuthGuard)
   @ApiOkResponse({ type: SupplierEntity, isArray: true })
   findAll() {
     return this.supplierService.findAll();
   }
 
   @Get(':id')
-  @UseGuards(GoogleOAuthGuard)
+  //@UseGuards(GoogleOAuthGuard)
   @ApiOkResponse({ type: SupplierEntity, isArray: true })
   findOne(@Param('id') id: string) {
-    return this.supplierService.findOne(+id);
+    return this.supplierService.findOne(id);
   }
 
   @Patch(':id')
-  @UseGuards(GoogleOAuthGuard)
+  //@UseGuards(GoogleOAuthGuard)
   @ApiOkResponse({ type: SupplierEntity })
   update(@Param('id') id: string, @Body() updateSupplierDto: UpdateSupplierDto) {
-    return this.supplierService.update(+id, updateSupplierDto);
+    return this.supplierService.update(id, updateSupplierDto);
   }
 
   @Delete(':id')
-  @UseGuards(GoogleOAuthGuard)
+  //@UseGuards(GoogleOAuthGuard)
   @ApiOkResponse({ type: SupplierEntity })
   remove(@Param('id') id: string) {
-    return this.supplierService.remove(+id);
+    return this.supplierService.remove(id);
   }
 }

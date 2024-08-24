@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  postgres:
+    extends:
+      file: docker-compose.postgres.yml
+      service: postgres
+
+  pgadmin:
+    extends:
+      file: docker-compose.pgadmin.yml
+      service: pgadmin
+
+  api-nest:
+    extends:
+      file: docker-compose.api-nest.yml
+      service: api-nest
+
+  minio:
+    extends:
+      file: docker-compose.minio.yml
+      service: minio
+
+volumes:
+  postgres-db-volume:
+  minio_data:
+    driver: local
+
+networks:
+  postgres-db-network:
+    driver: bridge
+  minionetwork:
+    driver: bridge

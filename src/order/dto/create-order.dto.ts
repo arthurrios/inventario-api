@@ -1,4 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { OrderItemDto } from 'src/order-item/dto/order-item.dto';
+
 
 export class CreateOrderDto {
 	@ApiProperty()
@@ -7,8 +9,8 @@ export class CreateOrderDto {
 	@ApiProperty()
 	supplierId: string;
 
-	//@ApiProperty()
-	//items: OrderItemDto[];
-	
-	
+	@ApiProperty()
+	items: OrderItemDto[];
+
+
 }

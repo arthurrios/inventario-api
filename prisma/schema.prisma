@@ -1,11 +1,24 @@
 generator client {
-  provider = "prisma-client-js"
-  binaryTargets   = ["linux-musl"]
+  provider      = "prisma-client-js"
+  binaryTargets = ["linux-musl"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+enum OrderItemStatus {
+  PENDENTE
+  ENVIADO
+  ENTREGUE
+  CANCELADO
+}
+
+enum UserType {
+  ADMIN
+  CLIENTE
+  FORNECEDOR
 }
 
 model Category {
@@ -38,18 +51,25 @@ model Order {
 }
 
 model OrderItem {
-  id        String  @id @default(uuid())
-  orderId   String
-  productId String
-  quantity  Int
-  order     Order   @relation(fields: [orderId], references: [id])
-  product   Product @relation(fields: [productId], references: [id])
+  id         String          @id @default(uuid())
+  orderId    String
+  productId  String
+  quantity   Int
+  unit_price Decimal
+  status     OrderItemStatus
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  order      Order           @relation(fields: [orderId], references: [id])
+  product    Product         @relation(fields: [productId], references: [id])
 
+  @@index([orderId], name: "idx_orderId")
+  @@index([productId], name: "idx_productId")
   @@map("order_items")
 }
 
 model Product {
   id                String      @id @default(uuid())
+  code              Int         @default(autoincrement())
   name              String
   description       String?
   price             Float
@@ -59,6 +79,7 @@ model Product {
   suppliers         Supplier[]  @relation("SupplierProducts")
   orders            OrderItem[]
 
+  @@index([categoryId], name: "idx_categoryId")
   @@map("products")
 }
 
@@ -66,7 +87,7 @@ model User {
   id             String  @id @default(uuid())
   name           String
   email          String  @unique
-  type           String
+  type           UserType
   googleId       String? @unique
   profilePicture String?
 

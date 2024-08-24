@@ -1,9 +1,17 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // Enable validation globally
+  app.useGlobalPipes(new ValidationPipe({
+    whitelist: true, // Automatically remove properties that do not have decorators
+    forbidNonWhitelisted: true, // Throw errors if properties that are not in the DTO are sent
+    transform: true, // Automatically transform payloads into DTO instances
+  }));
 
   const config = new DocumentBuilder()
     .setTitle('Inventory API')

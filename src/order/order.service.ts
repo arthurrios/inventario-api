@@ -1,26 +1,60 @@
 import { Injectable } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { PrismaService } from '../prisma/prisma.service';
+import { Order, Prisma } from '@prisma/client';
 
 @Injectable()
 export class OrderService {
-  create(createOrderDto: CreateOrderDto) {
-    return 'This action adds a new order';
+  constructor(private prisma: PrismaService) { }
+  
+  async create(data: Prisma.OrderCreateInput): Promise<Order> {
+    return this.prisma.order.create({
+      data,
+      include: { items: true },
+    });
   }
 
-  findAll() {
-    return `This action returns all order`;
+  async findAll(): Promise<Order[]> {
+    return this.prisma.order.findMany({ include: { items: true } });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} order`;
+  async findOne(id: string): Promise<Order | null> {
+    return this.prisma.order.findUnique({
+      where: { id },
+      include: { items: true },
+    });
   }
 
-  update(id: number, updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
+  async update(id: string, updateOrderDto: UpdateOrderDto): Promise<Order> {
+    const data: Prisma.OrderUpdateInput = {
+      ...updateOrderDto,
+      items: updateOrderDto.items
+        ? {
+          update: updateOrderDto.items.map(item => ({
+            where: { id: item.productId }, // Assuming items have unique IDs
+            data: {
+              quantity: item.quantity,
+              unit_price: item.unit_price,
+              totalPrice: item.quantity * item.unit_price,
+              status: item.status,
+            },
+          })),
+        }
+        : undefined,
+    };
+
+    return this.prisma.order.update({
+      where: { id },
+      data,
+      include: { items: true },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} order`;
+  async remove(id: string): Promise<Order> {
+    return this.prisma.order.delete({
+      where: { id },
+    });
   }
+
 }
