@@ -23,7 +23,7 @@ export class CategoryService {
     try {
       return await this.prisma.category.findMany();
     } catch (error) {
-      throw new BadRequestException('Falha ao recuperar categorias');
+      throw new BadRequestException('Falha ao buscar categorias');
     }
   }
 

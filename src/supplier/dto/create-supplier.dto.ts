@@ -1,12 +1,12 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Order, Product } from "@prisma/client";
+import { IsString, IsNotEmpty, IsOptional } from "class-validator";
 
 export class CreateSupplierDto {
-	@ApiProperty()
-	id: string;
 	@ApiProperty({ required: true })
+	@IsString({ message: 'O nome deve ser uma string' })
+	@IsNotEmpty({ message: 'O nome é obrigatório' })
 	name: string;
+
 	@ApiProperty()
 	contact: string;
 }
-

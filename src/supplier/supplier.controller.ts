@@ -14,6 +14,7 @@ import { UpdateSupplierDto } from './dto/update-supplier.dto';
 import { GoogleOAuthGuard } from 'src/auth/guards/google-oauth.guard';;
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { SupplierEntity } from './entities/supplier.entity';
+import { Supplier } from '@prisma/client';
 
 @Controller('supplier')
 @ApiTags('supplier')
@@ -23,8 +24,12 @@ export class SupplierController {
   @Post()
   //@UseGuards(GoogleOAuthGuard)
   @ApiCreatedResponse({ type: SupplierEntity })
-  create(@Body() createSupplierDto: CreateSupplierDto) {
-    return this.supplierService.create(createSupplierDto);
+  create(@Body() createSupplierDto: CreateSupplierDto): Promise<Supplier> {
+    const supplierData = {
+      name: createSupplierDto.name,
+      contact: createSupplierDto.contact,
+    };
+    return this.supplierService.create(supplierData);
   }
 
   @Get()
@@ -44,7 +49,7 @@ export class SupplierController {
   @Patch(':id')
   //@UseGuards(GoogleOAuthGuard)
   @ApiOkResponse({ type: SupplierEntity })
-  update(@Param('id') id: string, @Body() updateSupplierDto: UpdateSupplierDto) {
+  update(@Param('id') id: string, @Body() updateSupplierDto: UpdateSupplierDto) : Promise<Supplier> {
     return this.supplierService.update(id, updateSupplierDto);
   }
 
