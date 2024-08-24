@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { User, UserType } from '@prisma/client';
+import { User, UserRole } from '@prisma/client';
 
 export class UserEntity implements User {
   @ApiProperty()
@@ -15,13 +15,13 @@ export class UserEntity implements User {
   password: string;
 
   @ApiProperty()
-  type: UserType;
+  role: UserRole;
 
   @ApiProperty()
   googleId: string;
 
   @ApiProperty()
-  profilePicture: string;
+  avatar_url: string;
 
   constructor(partial: Partial<UserEntity>) {
     Object.assign(this, partial);

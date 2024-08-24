@@ -23,6 +23,8 @@ export class UserController {
   @Post()
   //@UseGuards(GoogleOAuthGuard)
   create(@Body() createUserDto: CreateUserDto) {
+    console.log('createUserDto', createUserDto);
+    
     return this.userService.create(createUserDto);
   }
 

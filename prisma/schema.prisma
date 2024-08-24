@@ -1,6 +1,6 @@
 generator client {
   provider      = "prisma-client-js"
-  binaryTargets = ["linux-musl"]
+  binaryTargets = ["linux-musl", "windows" , "darwin-arm64"] 
 }
 
 datasource db {
@@ -8,18 +8,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum OrderItemStatus {
-  PENDENTE
-  ENVIADO
-  ENTREGUE
-  CANCELADO
-}
-
-enum UserType {
-  ADMIN
-  CLIENTE
-  FORNECEDOR
-}
 
 model Category {
   id          String    @id @default(uuid())
@@ -67,6 +55,14 @@ model OrderItem {
   @@map("order_items")
 }
 
+enum OrderItemStatus {
+  PENDENTE
+  ENVIADO
+  ENTREGUE
+  CANCELADO
+}
+
+
 model Product {
   id                String      @id @default(uuid())
   code              Int         @default(autoincrement())
@@ -87,9 +83,16 @@ model User {
   id             String  @id @default(uuid())
   name           String
   email          String  @unique
-  type           UserType
+  role           UserRole @default(OPERADOR)
   googleId       String? @unique
-  profilePicture String?
+  avatar_url     String?
 
   @@map("users")
+}
+
+enum UserRole {
+  ADMIN
+  CLIENTE
+  FORNECEDOR
+  OPERADOR
 }
