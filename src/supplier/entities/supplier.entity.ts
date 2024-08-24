@@ -9,6 +9,12 @@ export class SupplierEntity implements Supplier {
 	@ApiProperty()
 	contact: string;
 	@ApiProperty()
+	email: string;
+	@ApiProperty()
+	address: string;
+	@ApiProperty()
+	phone: string;
+	@ApiProperty()
 	products: Product[];
 	@ApiProperty()
 	orders: Order[];

@@ -28,6 +28,9 @@ export class SupplierController {
     const supplierData = {
       name: createSupplierDto.name,
       contact: createSupplierDto.contact,
+      email: createSupplierDto.email,
+      address: createSupplierDto.address,
+      phone: createSupplierDto.phone,
     };
     return this.supplierService.create(supplierData);
   }

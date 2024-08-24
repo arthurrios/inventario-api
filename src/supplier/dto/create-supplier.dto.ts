@@ -9,4 +9,13 @@ export class CreateSupplierDto {
 
 	@ApiProperty()
 	contact: string;
+
+	@ApiProperty()
+	email: string;
+
+	@ApiProperty()
+	address: string;
+
+	@ApiProperty()
+	phone: string;
 }
