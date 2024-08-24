@@ -22,6 +22,9 @@ model Supplier {
   id       String    @id @default(uuid())
   name     String
   contact  String
+  email    String
+  phone    String
+  address  String
   products Product[] @relation("SupplierProducts")
   orders   Order[]
 
