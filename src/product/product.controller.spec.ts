@@ -17,4 +17,14 @@ describe('ProductController', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
+
+  it('should return all products', async () => {
+    expect(await controller.findAll()).toEqual([]);
+  });
+
+  it('should return a product by id', async () => {
+    const productId = '1';
+    expect(await controller.findOne(productId)).toEqual({});
+  }
+
 });

@@ -19,14 +19,6 @@ export class ProductService {
     }
   }
 
-  async findAll() {
-    try {
-      return await this.prisma.product.findMany();
-    } catch (error) {
-      throw new BadRequestException('Falha ao buscar os produtos');
-    }
-  }
-
   async findOne(id: string) {
     try {
       const product = await this.prisma.product.findUnique({
@@ -41,6 +33,125 @@ export class ProductService {
         throw error;
       }
       throw new BadRequestException('Falha ao buscar o produto');
+    }
+  }
+
+  async findAll() {
+    try {
+      return await this.prisma.product.findMany();
+    } catch (error) {
+      throw new BadRequestException('Falha ao buscar os produtos');
+    }
+  }
+
+  async findAllByCategory(categoryId: string) {
+    try {
+      return await this.prisma.product.findMany({
+        where: { categoryId },
+      });
+    } catch (error) {
+      throw new BadRequestException('Falha ao buscar os produtos');
+    }
+  }
+
+  async finAllByPrice(minPrice: number, maxPrice: number) {
+    try {
+      return await this.prisma.product.findMany({
+        where: {
+          AND: [
+            { price: { gte: minPrice } },
+            { price: { lte: maxPrice } },
+          ],
+        },
+      });
+    } catch (error) {
+      throw new BadRequestException('Falha ao buscar os produtos');
+    }
+  }
+
+  async findProductsBySearch(search: string) {
+    try {
+      return await this.prisma.product.findMany({
+        where: {
+          OR: [
+            { name: { contains: search } },
+            { description: { contains: search } },
+          ],
+        },
+      });
+    } catch (error) {
+      throw new BadRequestException('Falha ao buscar os produtos');
+    }
+  }
+
+  async findProductsBySearchAndCategory(search: string, categoryId: string) {
+    try {
+      return await this.prisma.product.findMany({
+        where: {
+          AND: [
+            {
+              OR: [
+                { name: { contains: search } },
+                { description: { contains: search } },
+              ],
+            },
+            { categoryId },
+          ],
+        },
+      });
+    } catch (error) {
+      throw new BadRequestException('Falha ao buscar os produtos');
+    }
+  }
+
+  async findProductsBySearchAndPrice(search: string, minPrice: number, maxPrice: number) {
+    try {
+      return await this.prisma.product.findMany({
+        where: {
+          AND: [
+            {
+              OR: [
+                { name: { contains: search } },
+                { description: { contains: search } },
+              ],
+            },
+            {
+              AND: [
+                { price: { gte: minPrice } },
+                { price: { lte: maxPrice } },
+              ],
+            },
+          ],
+        },
+      });
+    } catch (error) {
+      throw new BadRequestException('Falha ao buscar os produtos');
+    }
+  }
+
+  async findProductsBySearchAndCategoryAndPrice(search: string, categoryId: string, minPrice: number, maxPrice: number) {
+    try {
+      return await this.prisma.product.findMany({
+        where: {
+          AND: [
+            {
+              OR: [
+                { name: { contains: search } },
+                { description: { contains: search } },
+              ],
+            },
+            { categoryId },
+            {
+              AND: [
+                { price: { gte: minPrice } },
+                { price: { lte: maxPrice } },
+              ],
+            },
+          ],
+        },
+      });
+    } catch (error) {
+      throw new BadRequestException('Falha ao buscar os produtos');
     }
   }
 
