@@ -5,7 +5,7 @@ import { ApiProperty } from '@nestjs/swagger';
 export class UpdateProductDto extends PartialType(CreateProductDto) {
 
 	@ApiProperty({ required: false })
-	name: string;
+	product_name: string;
 
 	@ApiProperty({ required: false })
 	description: string;

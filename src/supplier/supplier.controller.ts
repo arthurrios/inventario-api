@@ -26,8 +26,8 @@ export class SupplierController {
   @ApiCreatedResponse({ type: SupplierEntity })
   create(@Body() createSupplierDto: CreateSupplierDto): Promise<Supplier> {
     const supplierData = {
-      name: createSupplierDto.name,
-      contact: createSupplierDto.contact,
+      supplier_name: createSupplierDto.supplier_name,
+      contact_info: createSupplierDto.contact_info,
       email: createSupplierDto.email,
       address: createSupplierDto.address,
       phone: createSupplierDto.phone,

@@ -4,10 +4,10 @@ import { Category } from '@prisma/client';
 
 export class CategoryEntity implements Category {
 	@ApiProperty()
-	id: string;
+	category_id: string;
 
 	@ApiProperty()
-	name: string;
+	category_name: string;
 
 	@ApiProperty()
 	description: string;

@@ -3,10 +3,10 @@ import { User, UserRole } from '@prisma/client';
 
 export class UserEntity implements User {
   @ApiProperty()
-  id: string;
+  user_id: string;
 
   @ApiProperty()
-  name: string;
+  username: string;
 
   @ApiProperty()
   email: string;

@@ -23,8 +23,8 @@ describe('ProductController', () => {
   });
 
   it('should return a product by id', async () => {
-    const productId = '1';
-    expect(await controller.findOne(productId)).toEqual({});
+    const product_id = '1';
+    expect(await controller.findOne(product_id)).toEqual({});
   }
 
 });

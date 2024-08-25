@@ -27,7 +27,7 @@ export class AuthService {
       const createUserDto: CreateUserDto = {
         googleId,
         email: emails[0].value,
-        name: displayName,
+        username: displayName,
         profilePicture: photos[0].value,
         role: UserRole.OPERADOR, // Default type for new users
       };
@@ -38,7 +38,7 @@ export class AuthService {
     }
 
     // Create a JWT payload
-    const payload = { email: user.email, sub: user.id };
+    const payload = { email: user.email, sub: user.user_id };
     return {
       access_token: this.jwtService.sign(payload),
       user: new UserEntity(user),

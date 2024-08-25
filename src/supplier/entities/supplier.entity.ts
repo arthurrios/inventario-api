@@ -1,13 +1,13 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Order, Product, Supplier } from "@prisma/client";
+import { PurchaseOrder, Product, Supplier } from "@prisma/client";
 
 export class SupplierEntity implements Supplier {
 	@ApiProperty()
-	id: string;
+	supplier_id: string;
 	@ApiProperty()
-	name: string;
+	supplier_name: string;
 	@ApiProperty()
-	contact: string;
+	contact_info: string;
 	@ApiProperty()
 	email: string;
 	@ApiProperty()
@@ -17,7 +17,7 @@ export class SupplierEntity implements Supplier {
 	@ApiProperty()
 	products: Product[];
 	@ApiProperty()
-	orders: Order[];
+	purchaseOrders: PurchaseOrder[];
 
 
 }

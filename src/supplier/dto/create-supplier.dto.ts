@@ -5,10 +5,10 @@ export class CreateSupplierDto {
 	@ApiProperty({ required: true })
 	@IsString({ message: 'O nome deve ser uma string' })
 	@IsNotEmpty({ message: 'O nome é obrigatório' })
-	name: string;
+	supplier_name: string;
 
 	@ApiProperty()
-	contact: string;
+	contact_info: string;
 
 	@ApiProperty()
 	email: string;

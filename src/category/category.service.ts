@@ -27,45 +27,45 @@ export class CategoryService {
     }
   }
 
-  async findOne(id: string): Promise<Category> {
+  async findOne(category_id: string): Promise<Category> {
     try {
-      const category = await this.prisma.category.findUnique({ where: { id } });
+      const category = await this.prisma.category.findUnique({ where: { category_id } });
       if (!category) {
-        throw new NotFoundException(`Categoria com id ${id} não encontrada`);
+        throw new NotFoundException(`Categoria com id ${category_id} não encontrada`);
       }
       return category;
     } catch (error) {
-      throw new NotFoundException(`Categoria com id ${id} não encontrada`);
+      throw new NotFoundException(`Categoria com id ${category_id} não encontrada`);
     }
   }
 
-  async update(id: string, updateCategoryDto: UpdateCategoryDto): Promise<Category> {
+  async update(category_id: string, updateCategoryDto: UpdateCategoryDto): Promise<Category> {
     try {
       const category = await this.prisma.category.update({
-        where: { id },
+        where: { category_id },
         data: updateCategoryDto,
       });
       if (!category) {
-        throw new NotFoundException(`Categoria com id ${id} não encontrada`);
+        throw new NotFoundException(`Categoria com id ${category_id} não encontrada`);
       }
       return category;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
-        throw new NotFoundException(`Categoria com id ${id} não encontrada`);
+        throw new NotFoundException(`Categoria com id ${category_id} não encontrada`);
       }
       throw new BadRequestException('Falha ao atualizar categoria');
     }
   }
 
-  async remove(id: string): Promise<Category> {
+  async remove(category_id: string): Promise<Category> {
     try {
       const category = await this.prisma.category.delete({
-        where: { id },
+        where: { category_id },
       });
       return category;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
-        throw new NotFoundException(`Categoria com id ${id} não encontrada`);
+        throw new NotFoundException(`Categoria com id ${category_id} não encontrada`);
       }
       throw new BadRequestException('Falha ao deletar categoria');
     }

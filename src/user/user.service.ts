@@ -13,8 +13,8 @@ export class UserService {
     return users.map((user) => new UserEntity(user));
   }
 
-  async findOne(id: string): Promise<UserEntity | null> {
-    const user = await this.prisma.user.findUnique({ where: { id } });
+  async findOne(user_id: string): Promise<UserEntity | null> {
+    const user = await this.prisma.user.findUnique({ where: { user_id } });
     return user ? new UserEntity(user) : null;
   }
 
@@ -25,16 +25,16 @@ export class UserService {
     return new UserEntity(user);
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto): Promise<UserEntity> {
+  async update(user_id: string, updateUserDto: UpdateUserDto): Promise<UserEntity> {
     const user = await this.prisma.user.update({
-      where: { id },
+      where: { user_id },
       data: updateUserDto,
     });
     return new UserEntity(user);
   }
 
-  async remove(id: string): Promise<UserEntity> {
-    const user = await this.prisma.user.delete({ where: { id } });
+  async remove(user_id: string): Promise<UserEntity> {
+    const user = await this.prisma.user.delete({ where: { user_id } });
     return new UserEntity(user);
   }
 }

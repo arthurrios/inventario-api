@@ -19,13 +19,13 @@ export class ProductService {
     }
   }
 
-  async findOne(id: string) {
+  async findOne(product_id: string) {
     try {
       const product = await this.prisma.product.findUnique({
-        where: { id },
+        where: { product_id },
       });
       if (!product) {
-        throw new NotFoundException(`Produto com id ${id} não encontrado`);
+        throw new NotFoundException(`Produto com id ${product_id} não encontrado`);
       }
       return product;
     } catch (error) {
@@ -44,10 +44,10 @@ export class ProductService {
     }
   }
 
-  async findAllByCategory(categoryId: string) {
+  async findAllByCategory(category_id: string) {
     try {
       return await this.prisma.product.findMany({
-        where: { categoryId },
+        where: { category_id },
       });
     } catch (error) {
       throw new BadRequestException('Falha ao buscar os produtos');
@@ -59,8 +59,8 @@ export class ProductService {
       return await this.prisma.product.findMany({
         where: {
           AND: [
-            { price: { gte: minPrice } },
-            { price: { lte: maxPrice } },
+            { unit_price: { gte: minPrice } },
+            { unit_price: { lte: maxPrice } },
           ],
         },
       });
@@ -74,7 +74,7 @@ export class ProductService {
       return await this.prisma.product.findMany({
         where: {
           OR: [
-            { name: { contains: search } },
+            { product_name: { contains: search } },
             { description: { contains: search } },
           ],
         },
@@ -84,18 +84,18 @@ export class ProductService {
     }
   }
 
-  async findProductsBySearchAndCategory(search: string, categoryId: string) {
+  async findProductsBySearchAndCategory(search: string, category_id: string) {
     try {
       return await this.prisma.product.findMany({
         where: {
           AND: [
             {
               OR: [
-                { name: { contains: search } },
+                { product_name: { contains: search } },
                 { description: { contains: search } },
               ],
             },
-            { categoryId },
+            { category_id },
           ],
         },
       });
@@ -111,14 +111,14 @@ export class ProductService {
           AND: [
             {
               OR: [
-                { name: { contains: search } },
+                { product_name: { contains: search } },
                 { description: { contains: search } },
               ],
             },
             {
               AND: [
-                { price: { gte: minPrice } },
-                { price: { lte: maxPrice } },
+                { unit_price: { gte: minPrice } },
+                { unit_price: { lte: maxPrice } },
               ],
             },
           ],
@@ -129,22 +129,22 @@ export class ProductService {
     }
   }
 
-  async findProductsBySearchAndCategoryAndPrice(search: string, categoryId: string, minPrice: number, maxPrice: number) {
-    try {
+  async findProductsBySearchAndCategoryAndPrice(search: string, category_id: string, minPrice: number, maxPrice: number) {
+    try {category_id
       return await this.prisma.product.findMany({
         where: {
           AND: [
             {
               OR: [
-                { name: { contains: search } },
+                { product_name: { contains: search } },
                 { description: { contains: search } },
               ],
             },
-            { categoryId },
+            { category_id: category_id },
             {
               AND: [
-                { price: { gte: minPrice } },
-                { price: { lte: maxPrice } },
+                { unit_price: { gte: minPrice } },
+                { unit_price: { lte: maxPrice } },
               ],
             },
           ],
@@ -155,33 +155,33 @@ export class ProductService {
     }
   }
 
-  async update(id: string, updateProductDto: UpdateProductDto) {
+  async update(product_id: string, updateProductDto: UpdateProductDto) {
     try {
       const updatedProduct = await this.prisma.product.update({
-        where: { id },
+        where: { product_id },
         data: updateProductDto,
       });
       if (!updatedProduct) {
-        throw new NotFoundException(`Produto com id ${id} não encontrado`);
+        throw new NotFoundException(`Produto com id ${product_id} não encontrado`);
       }
       return updatedProduct;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
-        throw new NotFoundException(`Produto com id ${id} não encontrado`);
+        throw new NotFoundException(`Produto com id ${product_id} não encontrado`);
       }
       throw new BadRequestException('Falha ao atualizar o produto');
     }
   }
 
-  async remove(id: string) {
+  async remove(product_id: string) {
     try {
       const product = await this.prisma.product.delete({
-        where: { id },
+        where: { product_id },
       });
       return product;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
-        throw new NotFoundException(`Produto com id ${id} não encontrado`);
+        throw new NotFoundException(`Produto com id ${product_id} não encontrado`);
       }
       throw new BadRequestException('Falha ao deletar o produto');
     }

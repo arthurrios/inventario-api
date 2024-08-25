@@ -6,14 +6,14 @@ const prisma = new PrismaClient();
 const Categories = require('./data/categories');
 const Products = require('./data/products');
 const Suppliers = require('./data/suppliers');
-const Orders = require('./data/orders');
+const Purchases = require('./data/purchases');
 
 async function main() {
   // Seed categories
   await Promise.all(
     Categories.map(async (category) => {
       await prisma.category.upsert({
-        where: { id: category.id },
+        where: { category_id: category.category_id },
         update: {},
         create: category,
       });
@@ -24,19 +24,21 @@ async function main() {
   await Promise.all(
     Products.map(async (product) => {
       const category = await prisma.category.findUnique({
-        where: { id: product.categoryId },
+        where: { category_id : product.category_id },
       });
 
       await prisma.product.upsert({
-        where: { id: product.id },
+        where: { product_id : product.product_id },
         update: {},
         create: {
-          id: product.id,
-          name: product.name,
+          code: product.code,
+          unit_of_measure: product.unit_of_measure,
+          product_id: product.product_id,
+          product_name: product.product_name,
           description: product.description,
-          price: product.price,
+          unit_price: product.unit_price,
           quantity_in_stock: product.quantity_in_stock,
-          category: { connect: { id: category.id } },
+          category: { connect: { category_id: category.category_id } },
         },
       });
     }),
@@ -46,7 +48,7 @@ async function main() {
   await Promise.all(
     Suppliers.map(async (supplier) => {
       await prisma.supplier.upsert({
-        where: { id: supplier.id },
+        where: { supplier_id: supplier.supplier_id },
         update: {},
         create: supplier,
       });
@@ -55,20 +57,20 @@ async function main() {
 
   // Seed orders
   await Promise.all(
-    Orders.map(async (order) => {
-      await prisma.order.upsert({
-        where: { id: order.id },
+    Purchases.map(async (purchase) => {
+      await prisma.purchaseOrder.upsert({
+        where: { purchase_order_id: purchase.purchase_order_id },
         update: {},
         create: {
-          id: order.id,
-          date: order.date,
-          supplier: { connect: { id: order.supplierId } },
-          items: {
-            create: order.items.map(item => ({
-              product: { connect: { id: item.productId } },
+          purchase_order_id: purchase.purchase_order_id,
+          order_date: purchase.date,
+          supplier: { connect: { supplier_id: purchase.supplier_id } },
+          status: purchase.status,
+          purchaseOrderDetails: {
+            create: purchase.items.map(item => ({
+              product: { connect: { product_id: item.product_id } },
               quantity: item.quantity,
               unit_price: item.unit_price,
-              status: item.status,
             })),
           },
         },

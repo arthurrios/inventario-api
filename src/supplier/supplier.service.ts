@@ -22,55 +22,55 @@ export class SupplierService {
     return this.prisma.supplier.findMany();
   }
 
-  async findOne(id: string): Promise<Supplier> {
+  async findOne(supplier_id: string): Promise<Supplier> {
     const supplier = await this.prisma.supplier.findUnique({
-      where: { id },
+      where: { supplier_id },
     });
 
     if (!supplier) {
-      throw new NotFoundException(`Fornecedor com id ${id} não encontrado`);
+      throw new NotFoundException(`Fornecedor com id ${supplier_id} não encontrado`);
     }
 
     return supplier;
   }
 
-  async update(id: string, updateSupplierDto: UpdateSupplierDto): Promise<Supplier> {
+  async update(supplier_id: string, updateSupplierDto: UpdateSupplierDto): Promise<Supplier> {
     try {
       const updatedSupplier = await this.prisma.supplier.update({
-        where: { id },
+        where: { supplier_id },
         data: updateSupplierDto,
       });
 
       if (!updatedSupplier) {
-        throw new NotFoundException(`Fornecedor com id ${id} não encontrado`);
+        throw new NotFoundException(`Fornecedor com id ${supplier_id} não encontrado`);
       }
 
       return updatedSupplier;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2025') {
-          throw new NotFoundException(`Fornecedor com id ${id} não encontrado`);
+          throw new NotFoundException(`Fornecedor com id ${supplier_id} não encontrado`);
         }
       }
       throw new BadRequestException('Falha ao atualizar o fornecedor');
     }
   }
 
-  async remove(id: string): Promise<Supplier> {
+  async remove(supplier_id: string): Promise<Supplier> {
     try {
       const supplier = await this.prisma.supplier.delete({
-        where: { id },
+        where: { supplier_id },
       });
 
       if (!supplier) {
-        throw new NotFoundException(`Fornecedor com id ${id} não encontrado`);
+        throw new NotFoundException(`Fornecedor com id ${supplier_id} não encontrado`);
       }
 
       return supplier;
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2025') {
-          throw new NotFoundException(`Fornecedor com id ${id} não encontrado`);
+          throw new NotFoundException(`Fornecedor com id ${supplier_id} não encontrado`);
         }
       }
       throw new BadRequestException('Falha ao remover o fornecedor');

@@ -39,11 +39,11 @@ describe('ProductService', () => {
   });
 
   it('should return a product by id', async () => {
-    const productId = 'some-id';
+    const product_id = 'some-id';
     const product = { id: '1', code: 1, name: '', categoryId: 'category-id', description: '', price: 66, quantity_in_stock: 0 };
     jest.spyOn(prismaService.product, 'findUnique').mockResolvedValueOnce(product);
-    expect(await service.findOne(productId)).toEqual(product);
-    expect(prismaService.product.findUnique).toHaveBeenCalledWith({ where: { id: productId } });
+    expect(await service.findOne(product_id)).toEqual(product);
+    expect(prismaService.product.findUnique).toHaveBeenCalledWith({ where: { id: product_id } });
   });
 
   let productDto = {
