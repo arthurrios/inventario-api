@@ -7,11 +7,17 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // Enable validation globally
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true, // Automatically remove properties that do not have decorators
-    forbidNonWhitelisted: true, // Throw errors if properties that are not in the DTO are sent
-    transform: true, // Automatically transform payloads into DTO instances
-  }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true, // Automatically remove properties that do not have decorators
+      forbidNonWhitelisted: true, // Throw errors if properties that are not in the DTO are sent
+      transform: true, // Automatically transform payloads into DTO instances
+    }),
+  );
+
+  app.enableCors({
+    origin: 'http://localhost:3000', // Replace with your frontend origin
+  });
 
   const config = new DocumentBuilder()
     .setTitle('Inventory API')
