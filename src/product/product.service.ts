@@ -175,15 +175,54 @@ export class ProductService {
 
   async remove(product_id: string) {
     try {
+      // Check for associations in sales and purchases
+      const salesAssociation = await this.prisma.saleDetail.findFirst({
+        where: { product_id },
+      });
+  
+      if (salesAssociation) {
+        throw new BadRequestException(
+          `Não é possível deletar o produto com id ${product_id} porque ele está associado a uma venda.`
+        );
+      }
+  
+      const purchaseAssociation = await this.prisma.purchaseOrderDetail.findFirst({
+        where: { product_id },
+      });
+  
+      if (purchaseAssociation) {
+        throw new BadRequestException(
+          `Não é possível deletar o produto com id ${product_id} porque ele está associado a uma compra.`
+        );
+      }
+  
+      // Proceed to delete the product if no associations are found
       const product = await this.prisma.product.delete({
         where: { product_id },
       });
+  
       return product;
     } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
-        throw new NotFoundException(`Produto com id ${product_id} não encontrado`);
+      console.log(error);
+  
+      // Rethrow specific exceptions
+      if (error instanceof NotFoundException || error instanceof BadRequestException) {
+        throw error;
       }
+  
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2025') {
+          throw new NotFoundException(
+            `Produto com id ${product_id} não encontrado`
+          );
+        }
+      }
+  
+      // Generic error handling
       throw new BadRequestException('Falha ao deletar o produto');
     }
   }
+  
+  
+  
 }
