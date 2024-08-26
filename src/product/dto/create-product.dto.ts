@@ -1,11 +1,20 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Decimal } from '@prisma/client/runtime/library';
-import { IsString, IsNumber, IsOptional, IsPositive, MinLength, IsObject } from 'class-validator';
+import {
+  IsString,
+  IsNumber,
+  IsOptional,
+  IsPositive,
+  MinLength,
+  IsObject,
+} from 'class-validator';
 
 export class CreateProductDto {
   @ApiProperty({ required: true })
   @IsString({ message: 'O nome do produto deve ser uma string' })
-  @MinLength(3, { message: 'O nome do produto deve ter pelo menos 3 caracteres' })
+  @MinLength(3, {
+    message: 'O nome do produto deve ter pelo menos 3 caracteres',
+  })
   product_name: string;
 
   @ApiProperty()
@@ -30,17 +39,9 @@ export class CreateProductDto {
   @ApiProperty({
     description: 'Informações da categoria ou ID da categoria existente',
     type: 'object',
+    readOnly: true,
   })
-  @IsObject()
-  category: {
-    connect?: {
-      category_id: string;
-    };
-    create?: {
-      category_name: string;
-      description: string;
-    };
-  };
+  category_id: string;
 
   @ApiProperty()
   code: string;

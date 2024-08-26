@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -6,7 +10,7 @@ import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ProductService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async create(createProductDto: CreateProductDto) {
     try {
@@ -25,7 +29,9 @@ export class ProductService {
         where: { product_id },
       });
       if (!product) {
-        throw new NotFoundException(`Produto com id ${product_id} não encontrado`);
+        throw new NotFoundException(
+          `Produto com id ${product_id} não encontrado`,
+        );
       }
       return product;
     } catch (error) {
@@ -104,7 +110,11 @@ export class ProductService {
     }
   }
 
-  async findProductsBySearchAndPrice(search: string, minPrice: number, maxPrice: number) {
+  async findProductsBySearchAndPrice(
+    search: string,
+    minPrice: number,
+    maxPrice: number,
+  ) {
     try {
       return await this.prisma.product.findMany({
         where: {
@@ -129,8 +139,14 @@ export class ProductService {
     }
   }
 
-  async findProductsBySearchAndCategoryAndPrice(search: string, category_id: string, minPrice: number, maxPrice: number) {
-    try {category_id
+  async findProductsBySearchAndCategoryAndPrice(
+    search: string,
+    category_id: string,
+    minPrice: number,
+    maxPrice: number,
+  ) {
+    try {
+      category_id;
       return await this.prisma.product.findMany({
         where: {
           AND: [
@@ -162,12 +178,19 @@ export class ProductService {
         data: updateProductDto,
       });
       if (!updatedProduct) {
-        throw new NotFoundException(`Produto com id ${product_id} não encontrado`);
+        throw new NotFoundException(
+          `Produto com id ${product_id} não encontrado`,
+        );
       }
       return updatedProduct;
     } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
-        throw new NotFoundException(`Produto com id ${product_id} não encontrado`);
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new NotFoundException(
+          `Produto com id ${product_id} não encontrado`,
+        );
       }
       throw new BadRequestException('Falha ao atualizar o produto');
     }
@@ -180,8 +203,13 @@ export class ProductService {
       });
       return product;
     } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
-        throw new NotFoundException(`Produto com id ${product_id} não encontrado`);
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === 'P2025'
+      ) {
+        throw new NotFoundException(
+          `Produto com id ${product_id} não encontrado`,
+        );
       }
       throw new BadRequestException('Falha ao deletar o produto');
     }
