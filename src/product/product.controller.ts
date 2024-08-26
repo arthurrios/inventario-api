@@ -3,7 +3,7 @@ import {
   Get,
   Post,
   Body,
-  Patch,
+  Put,
   Param,
   Delete,
   UseGuards,
@@ -44,7 +44,7 @@ export class ProductController {
     return this.productService.findOne(id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   // //@UseGuards(GoogleOAuthGuard)
   ////@UseGuards(GoogleOAuthGuard)
   @ApiOkResponse({ type: ProductEntity })
