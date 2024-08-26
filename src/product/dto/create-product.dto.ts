@@ -8,7 +8,8 @@ export class CreateProductDto {
   @MinLength(3, { message: 'O nome do produto deve ter pelo menos 3 caracteres' })
   product_name: string;
 
-  @ApiProperty()
+  @ApiProperty({ required: true })
+  @IsString({ message: 'A unidade de medida deve ser uma string' })
   unit_of_measure: string;
 
   @ApiProperty()
@@ -26,22 +27,13 @@ export class CreateProductDto {
   @IsNumber({}, { message: 'A quantidade em estoque deve ser um número' })
   @IsPositive({ message: 'A quantidade em estoque deve ser um valor positivo' })
   quantity_in_stock: Decimal;
-
-  @ApiProperty({
-    description: 'Informações da categoria ou ID da categoria existente',
-    type: 'object',
-  })
-  @IsObject()
-  category: {
-    connect?: {
-      category_id: string;
-    };
-    create?: {
-      category_name: string;
-      description: string;
-    };
-  };
+  
+  @ApiProperty({ required: true })
+  @IsString({ message: 'O ID da categoria deve ser uma string' })
+  category_id: string;
 
   @ApiProperty()
+  @IsOptional()
   code: string;
+  
 }

@@ -18,8 +18,8 @@ import { PurchaseOrder } from '@prisma/client';
 import { UpdatePurchaseOrderDto } from './dto/update-purchase-order.dto';
 import { Decimal } from '@prisma/client/runtime/library';
 
-@Controller('order')
-@ApiTags('order')
+@Controller('purchase-order')
+@ApiTags('purchase-order')
 export class PurchaseOrderController {
   constructor(private readonly orderService: PurchaseOrderService) { }
 

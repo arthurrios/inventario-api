@@ -18,8 +18,8 @@ import { CreateSaleDto } from './dto/create-sale.dto';
 import { UpdateSaleDto } from './dto/update-sale.dto';
 import { Decimal } from '@prisma/client/runtime/library';
 
-@Controller('order')
-@ApiTags('order')
+@Controller('sale')
+@ApiTags('sale')
 export class SaleController {
   constructor(private readonly orderService: SaleService) { }
 

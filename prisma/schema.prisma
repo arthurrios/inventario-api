@@ -20,6 +20,8 @@ model Product {
   category_id           String
   category              Category               @relation(fields: [category_id], references: [category_id])
   quantity_in_stock     Decimal                 @default(0)
+  created_at            DateTime               @default(now())
+  updated_at            DateTime               @updatedAt
   InventoryCountDetails InventoryCountDetail[]
   SalesDetails          SaleDetail[]
   PurchaseOrderDetails  PurchaseOrderDetail[]
