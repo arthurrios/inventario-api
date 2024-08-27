@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException, ConflictException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -181,7 +181,7 @@ export class ProductService {
       });
   
       if (salesAssociation) {
-        throw new BadRequestException(
+        throw new ConflictException(
           `Não é possível deletar o produto com id ${product_id} porque ele está associado a uma venda.`
         );
       }
@@ -191,7 +191,7 @@ export class ProductService {
       });
   
       if (purchaseAssociation) {
-        throw new BadRequestException(
+        throw new ConflictException(
           `Não é possível deletar o produto com id ${product_id} porque ele está associado a uma compra.`
         );
       }
@@ -206,7 +206,7 @@ export class ProductService {
       console.log(error);
   
       // Rethrow specific exceptions
-      if (error instanceof NotFoundException || error instanceof BadRequestException) {
+      if (error instanceof NotFoundException || error instanceof ConflictException) {
         throw error;
       }
   
