@@ -2,7 +2,7 @@
 
 generator client {
   provider      = "prisma-client-js"
-  binaryTargets = ["linux-musl", "windows", "darwin-arm64"]
+  binaryTargets = ["linux-musl", "windows", "darwin-arm64", "debian-openssl-3.0.x"]
 }
 
 datasource db {
