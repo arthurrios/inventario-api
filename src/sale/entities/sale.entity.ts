@@ -3,20 +3,13 @@ import { $Enums, Sale } from "@prisma/client";
 import { SaleDetailEntity } from "src/sale-detail/entities/sale-detail.entity";
 
 export class SaleEntity implements Sale {
-	@ApiProperty()
-	sale_id: string;
-	@ApiProperty()
-	sale_date: Date;
-	@ApiProperty()
-	customer_id: string;
-	@ApiProperty()
-	created_at: Date;
-	@ApiProperty()
-	updated_at: Date;
-	@ApiProperty()
-	status: $Enums.OrderItemStatus;	
 
-	@ApiProperty()
+	sale_id: string;
+	sale_date: Date;
+	customer_id: string;
+	created_at: Date;
+	updated_at: Date;
+	status: $Enums.OrderItemStatus;	
 	SaleDetails: SaleDetailEntity[];
 
 }

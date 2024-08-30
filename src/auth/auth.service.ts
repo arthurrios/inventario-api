@@ -28,7 +28,7 @@ export class AuthService {
         googleId,
         email: emails[0].value,
         username: displayName,
-        profilePicture: photos[0].value,
+        avatar_url: photos[0].value,
         role: UserRole.OPERADOR, // Default type for new users
       };
 

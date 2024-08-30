@@ -32,7 +32,7 @@ export class CreateProductDto {
   @IsString({ message: 'O ID da categoria deve ser uma string' })
   category_id: string;
 
-  @ApiProperty()
+  @ApiProperty({ required: true })
   @IsOptional()
   code: string;
   
