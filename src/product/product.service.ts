@@ -15,11 +15,14 @@ export class ProductService {
       });
       return product;
     } catch (error) {
+      console.log(error);
+      
       throw new BadRequestException('Falha ao criar o produto');
     }
   }
 
   async findOne(product_id: string) {
+    
     try {
       const product = await this.prisma.product.findUnique({
         where: { product_id },
@@ -55,6 +58,8 @@ export class ProductService {
   }
 
   async finAllByPrice(minPrice: number, maxPrice: number) {
+    console.log(minPrice, maxPrice);
+    
     try {
       return await this.prisma.product.findMany({
         where: {

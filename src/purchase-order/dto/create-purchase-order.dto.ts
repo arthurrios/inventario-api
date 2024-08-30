@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsArray, IsDate, IsOptional, ValidateNested, IsUUID } from 'class-validator';
 import { Type } from 'class-transformer';
-import { OrderItemStatus, PurchaseOrderDetail } from '@prisma/client';
+import { OrderItemStatus } from '@prisma/client';
 import { PurchaseOrderDetailEntity } from 'src/purchase-order-detail/entities/purchase-order-detail.entity';
 import { Decimal } from '@prisma/client/runtime/library';
 
