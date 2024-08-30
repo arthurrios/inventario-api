@@ -9,7 +9,7 @@ services:
     volumes:
       - .:/usr/src/app
     ports:
-      - '${SERVER_PORT}:${SERVER_PORT}'
+      - '${PORT}:${PORT}'
       - '9229:9229'
     env_file:
       - .env
