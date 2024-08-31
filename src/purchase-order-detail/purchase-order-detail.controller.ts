@@ -9,11 +9,11 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { PurchaseOrderDetailService } from './purchase-order-detail.service';
-import { PurchaseOrderDetailDto } from './dto/purchase-order-detail.dto';
 import { UpdatePurchaseOrderDetailDto } from './dto/update-purchase-order-detail.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { GoogleOAuthGuard } from 'src/auth/guards/google-oauth.guard';
 import { PurchaseOrder } from '@prisma/client';
+import { CreatePurchaseOrderDetailDto } from './dto/create-purchase-order-detail.dto';
 
 
 @Controller('order-item')
@@ -23,7 +23,7 @@ export class PurchaseOrderDetailController {
 
   @Post()
   //@UseGuards(GoogleOAuthGuard)
-  create(@Body() createOrderItemDto: PurchaseOrderDetailDto) {
+  create(@Body() createOrderItemDto: CreatePurchaseOrderDetailDto) {
     return this.purchaseOrderDetailService.create(createOrderItemDto);
   }
 

@@ -16,8 +16,11 @@ async function bootstrap() {
   );
 
   app.enableCors({
-    origin: 'http://localhost:3000', // Replace with your frontend origin
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // Replace with your frontend origin
   });
+
 
   const config = new DocumentBuilder()
     .setTitle('Inventory API')
