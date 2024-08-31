@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProductService } from './product.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { Decimal } from '@prisma/client/runtime/library';
 
 describe('ProductService', () => {
   let service: ProductService;
@@ -40,7 +41,7 @@ describe('ProductService', () => {
 
   it('should return a product by id', async () => {
     const product_id = 'some-id';
-    const product = { id: '1', code: 1, name: '', categoryId: 'category-id', description: '', price: 66, quantity_in_stock: 0 };
+    const product = { product_id: '1', code: '1', product_name: 'Teste', category_id: 'category-id', description: '', unit_price: new Decimal(66), quantity_in_stock: new Decimal(10), unit_of_measure: 'UN', image: 'image', created_at: new Date(), updated_at: new Date() };
     jest.spyOn(prismaService.product, 'findUnique').mockResolvedValueOnce(product);
     expect(await service.findOne(product_id)).toEqual(product);
     expect(prismaService.product.findUnique).toHaveBeenCalledWith({ where: { id: product_id } });
@@ -51,13 +52,13 @@ describe('ProductService', () => {
     code : "",
     product_name: 'name',
     description: 'description',
-    unit_price: 50.00,
+    unit_price: new Decimal(66),
     unit_of_measure: "UN",
     category_id: '1',
     image: 'image',
     created_at: new Date(),
     updated_at: new Date(),
-    quantity_in_stock: 30.00
+    quantity_in_stock:  new Decimal(44)
   };
 
   it('should add a product', async () => {
@@ -88,7 +89,7 @@ describe('ProductService', () => {
 
   it('should return all products by category', async () => {
     const categoryId = 'category-id';
-    const productsByCategory = [{ id: '1', code: 1, name: '' , categoryId : 'category-id', description: '', price: 66, quantity_in_stock: 0 }];
+    const productsByCategory = [{ product_id: '1', code: '1', product_name: 'Teste' , category_id : 'category-id', description: '', unit_price: new Decimal(66), quantity_in_stock: new Decimal(50), unit_of_measure: 'UN', image: 'image', created_at: new Date(), updated_at: new Date() }];
     jest.spyOn(prismaService.product, 'findMany').mockResolvedValueOnce(productsByCategory);
     expect(await service.findAllByCategory(categoryId)).toEqual(productsByCategory);
     expect(prismaService.product.findMany).toHaveBeenCalledWith({ where: { categoryId } });
@@ -97,7 +98,7 @@ describe('ProductService', () => {
   it('should return all products by price', async () => {
     const minPrice = 0;
     const maxPrice = 100;
-    const productsByPrice = [{ id: '1', name: 'product 1', price: 50, categoryId: '1', description: '', quantity_in_stock: 0, code: 1 }];
+    const productsByPrice = [{ product_id: '1', code: '1', product_name: 'Teste', category_id: 'category-id', description: '', unit_price: new Decimal(66), quantity_in_stock: new Decimal(50), unit_of_measure: 'UN', image: 'image', created_at: new Date(), updated_at: new Date() }];
     jest.spyOn(prismaService.product, 'findMany').mockResolvedValueOnce(productsByPrice);
     expect(await service.finAllByPrice(minPrice, maxPrice)).toEqual(productsByPrice);
     expect(prismaService.product.findMany).toHaveBeenCalledWith({
@@ -107,7 +108,7 @@ describe('ProductService', () => {
 
   it('should return all products by search', async () => {
     const searchTerm = 'product';
-    const productsBySearch = [{ id: '1', name: 'product 1', price: 50, categoryId: '1', description: '', quantity_in_stock: 0, code: 1 }];
+    const productsBySearch = [{ product_id: '1', code: '1', product_name: 'Teste', category_id: 'category-id', description: '', unit_price: new Decimal(66), quantity_in_stock: new Decimal(50), unit_of_measure: 'UN', image: 'image', created_at: new Date(), updated_at: new Date() }];
     jest.spyOn(prismaService.product, 'findMany').mockResolvedValueOnce(productsBySearch);
     expect(await service.findProductsBySearch(searchTerm)).toEqual(productsBySearch);
     expect(prismaService.product.findMany).toHaveBeenCalledWith({
@@ -118,7 +119,7 @@ describe('ProductService', () => {
   it('should return all products by search and category', async () => {
     const searchTerm = 'product';
     const categoryId = 'category-id';
-    const productsBySearchAndCategory = [{ id: '1', name: 'product 1', price: 50, categoryId: '1', description: '', quantity_in_stock: 0, code: 1 }];
+    const productsBySearchAndCategory = [{ product_id: '1', code: '1', product_name: 'Teste', category_id: 'category-id', description: '', unit_price: new Decimal(66), quantity_in_stock: new Decimal(50), unit_of_measure: 'UN', image: 'image', created_at: new Date(), updated_at: new Date() }];
     jest.spyOn(prismaService.product, 'findMany').mockResolvedValueOnce(productsBySearchAndCategory);
     expect(await service.findProductsBySearchAndCategory(searchTerm, categoryId)).toEqual(productsBySearchAndCategory);
     expect(prismaService.product.findMany).toHaveBeenCalledWith({
@@ -133,7 +134,7 @@ describe('ProductService', () => {
     const searchTerm = 'product';
     const minPrice = 0;
     const maxPrice = 100;
-    const productsBySearchAndPrice = [{ id: '1', name: 'product 1', price: 50, categoryId: '1', description: '', quantity_in_stock: 0, code: 1 }];
+    const productsBySearchAndPrice = [{ product_id: '1', code: '1', product_name: 'Teste', category_id: 'category-id', description: '', unit_price: new Decimal(66), quantity_in_stock: new Decimal(50), unit_of_measure: 'UN', image: 'image', created_at: new Date(), updated_at: new Date() }];
     jest.spyOn(prismaService.product, 'findMany').mockResolvedValueOnce(productsBySearchAndPrice);
     expect(await service.findProductsBySearchAndPrice(searchTerm, minPrice, maxPrice)).toEqual(productsBySearchAndPrice);
     expect(prismaService.product.findMany).toHaveBeenCalledWith({
@@ -149,7 +150,7 @@ describe('ProductService', () => {
     const categoryId = 'category-id';
     const minPrice = 0;
     const maxPrice = 100;
-    const productsBySearchCategoryAndPrice = [{ id: '1', name: 'product 1', price: 50, categoryId: '1', description: '', quantity_in_stock: 0, code: 1 }];
+    const productsBySearchCategoryAndPrice = [{ product_id: '1', code: '1', product_name: 'Teste', category_id: 'category-id', description: '', unit_price: new Decimal(66), quantity_in_stock: new Decimal(50), unit_of_measure: 'UN', image: 'image', created_at: new Date(), updated_at: new Date() }];
     jest.spyOn(prismaService.product, 'findMany').mockResolvedValueOnce(productsBySearchCategoryAndPrice);
     expect(await service.findProductsBySearchAndCategoryAndPrice(searchTerm, categoryId, minPrice, maxPrice)).toEqual(productsBySearchCategoryAndPrice);
     expect(prismaService.product.findMany).toHaveBeenCalledWith({

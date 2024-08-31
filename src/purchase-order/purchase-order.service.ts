@@ -34,14 +34,13 @@ export class PurchaseOrderService {
           update: updateOrderDto.purchaseOrderDetails.map(item => {
             const quantity = new Decimal(item.quantity.toString());
             const unitPrice = new Decimal(item.unit_price.toString());
-            const totalPrice = quantity.times(unitPrice);
+            //const totalPrice = quantity.times(unitPrice);
 
             return {
               where: { purchase_order_detail_id: item.purchase_order_detail_id },
               data: {
-                quantity: item.quantity,
-                unit_price: item.unit_price,
-                totalPrice: totalPrice.toNumber(), 
+                quantity: item.quantity
+                //totalPrice: totalPrice.toNumber(), 
               },
             };
           }),
