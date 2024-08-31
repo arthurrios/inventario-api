@@ -47,17 +47,21 @@ describe('ProductService', () => {
   });
 
   let productDto = {
-    code : 1,
-    name: 'name',
+    product_id: "1",
+    code : "",
+    product_name: 'name',
     description: 'description',
-    price: 0,
-    categoryId: '1',
+    unit_price: 50.00,
+    unit_of_measure: "UN",
+    category_id: '1',
     image: 'image',
-    quantity_in_stock: 30
+    created_at: new Date(),
+    updated_at: new Date(),
+    quantity_in_stock: 30.00
   };
 
   it('should add a product', async () => {
-    const createdProduct = { id: '1', ...productDto };
+    const createdProduct = { product_id: '1', ...productDto };
     jest.spyOn(prismaService.product, 'create').mockResolvedValueOnce(createdProduct);
     expect(await service.create(productDto)).toEqual(createdProduct);
     expect(prismaService.product.create).toHaveBeenCalledWith({ data: productDto });

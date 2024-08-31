@@ -18,7 +18,7 @@ describe('CategoryService', () => {
   it('should create a new category', async () => {
     // Arrange
     const createCategoryDto = {
-      name: 'Test Category',
+      category_name: 'Test Category',
       description: 'This is a test category',
     };
 
@@ -27,7 +27,7 @@ describe('CategoryService', () => {
 
     // Assert
     expect(createdCategory).toBeDefined();
-    expect(createdCategory.name).toEqual(createCategoryDto.name);
+    expect(createdCategory.category_name).toEqual(createCategoryDto.category_name);
     expect(createdCategory.description).toEqual(createCategoryDto.description);
   });
 
@@ -43,59 +43,59 @@ describe('CategoryService', () => {
   it('should find a category by id', async () => {
     // Arrange
     const createCategoryDto = {
-      name: 'Test Category',
+      category_name: 'Test Category',
       description: 'This is a test category',
     };
 
     const createdCategory = await service.create(createCategoryDto);
 
     // Act
-    const category = await service.findOne(createdCategory.id);
+    const category = await service.findOne(createdCategory.category_id);
 
     // Assert
     expect(category).toBeDefined();
-    expect(category.id).toEqual(createdCategory.id);
+    expect(category.category_id).toEqual(createdCategory.category_id);
   });
 
   it('should update a category', async () => {
     // Arrange
     const createCategoryDto = {
-      name: 'Test Category',
+      category_name: 'Test Category',
       description: 'This is a test category',
     };
 
     const createdCategory = await service.create(createCategoryDto);
 
     const updateCategoryDto = {
-      name: 'Updated Category',
+      category_name: 'Updated Category',
       description: 'This is an updated test category',
     };
 
     // Act
-    const updatedCategory = await service.update(createdCategory.id, updateCategoryDto);
+    const updatedCategory = await service.update(createdCategory.category_id, updateCategoryDto);
 
     // Assert
     expect(updatedCategory).toBeDefined();
-    expect(updatedCategory.id).toEqual(createdCategory.id);
-    expect(updatedCategory.name).toEqual(updateCategoryDto.name);
+    expect(updatedCategory.category_id).toEqual(createdCategory.category_id);
+    expect(updatedCategory.category_name).toEqual(updateCategoryDto.category_name);
     expect(updatedCategory.description).toEqual(updateCategoryDto.description);
   });
 
   it('should remove a category', async () => {
     // Arrange
     const createCategoryDto = {
-      name: 'Test Category',
+      category_name: 'Test Category',
       description: 'This is a test category',
     };
 
     const createdCategory = await service.create(createCategoryDto);
 
     // Act
-    const removedCategory = await service.remove(createdCategory.id);
+    const removedCategory = await service.remove(createdCategory.category_id);
 
     // Assert
     expect(removedCategory).toBeDefined();
-    expect(removedCategory.id).toEqual(createdCategory.id);
+    expect(removedCategory.category_id).toEqual(createdCategory.category_id);
   });
 });
 
