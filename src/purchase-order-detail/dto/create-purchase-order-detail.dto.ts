@@ -1,12 +1,17 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNumber, IsEnum, IsUUID, IsPositive, Min } from 'class-validator';
-import { OrderItemStatus } from '@prisma/client';
+import { IsString, IsNumber, IsEnum, IsUUID, IsPositive, Min, IsOptional } from 'class-validator';
 
-export class PurchaseOrderDetailDto {
+export class CreatePurchaseOrderDetailDto {
+
+	@ApiProperty()
+	@IsUUID('4', { message: 'O ID da compra deve ser um UUID válido' })
+	@IsOptional()
+	purchase_order_detail_id: string;
+
 	@ApiProperty()
 	@IsString({ message: 'O ID do produto deve ser uma string' })
 	@IsUUID('4', { message: 'O ID do produto deve ser um UUID válido' }) // Validates UUID format (version 4)
-	productId: string;
+	product_id: string;
 
 	@ApiProperty()
 	@IsNumber({}, { message: 'A quantidade deve ser um número' }) // Ensures it is a number
@@ -19,8 +24,6 @@ export class PurchaseOrderDetailDto {
 	@IsPositive({ message: 'O preço unitário deve ser um valor positivo' }) // Unit price should be positive
 	unit_price: number;
 
-	@ApiProperty()
-	@IsEnum(OrderItemStatus, { message: 'O status deve ser um dos valores válidos: PENDENTE, ENVIADO, ENTREGUE, CANCELADO' }) // Ensures valid enum value
-	status: OrderItemStatus;
+	
 }
 

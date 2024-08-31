@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 
 import { UpdatePurchaseOrderDetailDto } from './dto/update-purchase-order-detail.dto';
-import { PurchaseOrderDetailDto } from './dto/purchase-order-detail.dto';
+import { CreatePurchaseOrderDetailDto } from './dto/create-purchase-order-detail.dto';
 
 @Injectable()
 export class PurchaseOrderDetailService {
-  create(createPurchaseOrderDetailDto: PurchaseOrderDetailDto) {
+  create(createPurchaseOrderDetailDto: CreatePurchaseOrderDetailDto) {
     return 'This action adds a new orderItem';
   }
 

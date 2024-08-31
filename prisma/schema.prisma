@@ -106,30 +106,30 @@ model Customer {
   @@map("customers")
 }
 
-model PurchaseOrder {
-  purchase_order_id    String                @id @default(uuid())
-  supplier_id          String
-  order_date           DateTime
-  status               OrderItemStatus
-  supplier             Supplier              @relation(fields: [supplier_id], references: [supplier_id])
-  purchaseOrderDetails PurchaseOrderDetail[]
+  model PurchaseOrder {
+    purchase_order_id    String                @id @default(uuid())
+    supplier_id          String
+    order_date           DateTime
+    status               OrderItemStatus
+    supplier             Supplier              @relation(fields: [supplier_id], references: [supplier_id])
+    purchaseOrderDetails PurchaseOrderDetail[]
 
-  @@map("purchase_orders")
-}
+    @@map("purchase_orders")
+  }
 
-model PurchaseOrderDetail {
-  purchase_order_detail_id String        @id @default(uuid())
-  purchase_order_id        String
-  product_id               String
-  quantity                 Decimal
-  unit_price               Decimal
-  created_at               DateTime      @default(now())
-  updated_at               DateTime      @updatedAt
-  purchaseOrder            PurchaseOrder @relation(fields: [purchase_order_id], references: [purchase_order_id])
-  product                  Product       @relation(fields: [product_id], references: [product_id])
+  model PurchaseOrderDetail {
+    purchase_order_detail_id String        @id @default(uuid())
+    purchase_order_id        String
+    product_id               String
+    quantity                 Decimal
+    unit_price               Decimal
+    created_at               DateTime      @default(now())
+    updated_at               DateTime      @updatedAt
+    purchaseOrder            PurchaseOrder @relation(fields: [purchase_order_id], references: [purchase_order_id])
+    product                  Product       @relation(fields: [product_id], references: [product_id])
 
-  @@map("purchase_order_details")
-}
+    @@map("purchase_order_details")
+  }
 
 model Sale {
   sale_id     String          @id @default(uuid())
