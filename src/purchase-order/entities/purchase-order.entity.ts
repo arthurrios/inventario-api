@@ -8,6 +8,8 @@ export class PurchaseOrderEntity implements PurchaseOrder {
 	order_date: Date;
 	supplier_id: string;
 	status: OrderItemStatus
+	created_at: Date;
+	updated_at: Date;
 	purchaseOrderDetails: PurchaseOrderDetailEntity[];
 
 }
